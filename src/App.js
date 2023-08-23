@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
 
-function App() {
+//Components
+
+import Container from "./components/Container";
+
+import Header from "./components/Header";
+
+import FAQ from "./components/FAQ";
+
+//Hooks
+
+import { useState } from "react";
+
+//Data
+
+import { Data as data } from "./data";
+
+const App = () => {
+  const [questions, setQuestions] = useState(data);
+
+  const showAnswerFunc = (index) => {
+    const faqs = [...questions];
+    faqs[index].show = !faqs[index].show;
+    setQuestions(faqs);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 font-poppins">
+      <Container>
+        <Header />
+        <FAQ showAnswer={showAnswerFunc} questions={questions} />
+      </Container>
     </div>
   );
-}
+};
 
 export default App;
